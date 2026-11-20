@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Social Media</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h1>ConnectHub</h1>
+        <nav>
+            <a href="#" onclick="showSection('home')">Home</a>
+            <a href="#" onclick="showSection('profile')">Profile</a>
+            <button id="logoutBtn" onclick="logout()" hidden>Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="authSection" class="auth-container">
+            <div class="auth-box">
+                <h2>Welcome to ConnectHub</h2>
+                <p>Connect. Share. Discover.</p>
+
+                <div id="registerForm">
+                    <h3>Create Account</h3>
+                    <input id="regName" placeholder="Full Name">
+                    <input id="regEmail" type="email" placeholder="Email">
+                    <input id="regPassword" type="password" placeholder="Password">
+                    <button onclick="register()">Register</button>
+                    <p>Already registered?
+                        <a href="#" onclick="toggleAuth()">Login</a>
+                    </p>
+                </div>
+
+                <div id="loginForm" hidden>
+                    <h3>Login</h3>
+                    <input id="loginEmail" type="email" placeholder="Email">
+                    <input id="loginPassword" type="password" placeholder="Password">
+                    <button onclick="login()">Login</button>
+                    <p>New user?
+                        <a href="#" onclick="toggleAuth()">Register</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="homeSection" hidden>
+            <div class="create-post">
+                <h2>Share something</h2>
+                <textarea id="postContent"
+                    placeholder="What's on your mind?"></textarea>
+                <button onclick="createPost()">Create Post</button>
+            </div>
+
+           <div id="postsContainer"></div>
+
+<div id="usersContainer"></div>
+
+</section>
+
+<section id="profileSection" hidden>
+            <div class="profile-box">
+                <h2>My Profile</h2>
+                <h3 id="profileName"></h3>
+                <p id="profileEmail"></p>
+                <input id="editName" placeholder="Update your name">
+                <textarea id="editBio" placeholder="Write your bio"></textarea>
+                <button onclick="updateProfile()">Update Profile</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
