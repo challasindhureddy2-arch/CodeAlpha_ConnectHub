@@ -4,76 +4,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConnectHub - Social Media</title>
+
+    <title>ConnectHub | Connect • Share • Discover</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <header class="navbar">
-        <h1>ConnectHub</h1>
-        <nav>
-            <a href="#" onclick="showSection('home')">Home</a>
-            <a href="#" onclick="showSection('profile')">Profile</a>
-            <button id="logoutBtn" onclick="logout()" hidden>Logout</button>
-        </nav>
-    </header>
+<!-- NAVBAR -->
 
-    <main>
-        <section id="authSection" class="auth-container">
-            <div class="auth-box">
-                <h2>Welcome to ConnectHub</h2>
-                <p>Connect. Share. Discover.</p>
+<header class="navbar">
 
-                <div id="registerForm">
-                    <h3>Create Account</h3>
-                    <input id="regName" placeholder="Full Name">
-                    <input id="regEmail" type="email" placeholder="Email">
-                    <input id="regPassword" type="password" placeholder="Password">
-                    <button onclick="register()">Register</button>
-                    <p>Already registered?
-                        <a href="#" onclick="toggleAuth()">Login</a>
-                    </p>
+    <h1>ConnectHub</h1>
+
+    <nav>
+        <a href="#" onclick="showSection('home'); return false;">Home</a>
+        <a href="#" onclick="showSection('explore'); return false;">Explore</a>
+        <a href="#" onclick="showSection('saved'); return false;">Saved</a>
+        <a href="#" onclick="showSection('activity'); return false;">Activity</a>
+        <a href="#" onclick="showSection('profile'); return false;">Profile</a>
+
+        <button id="logoutBtn" onclick="logout()" hidden>
+            Logout
+        </button>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <!-- AUTHENTICATION -->
+
+    <section id="authSection" class="auth-container">
+
+        <div class="auth-box">
+
+            <h2>Welcome to ConnectHub 🌸</h2>
+
+            <p>Your little corner of connection, creativity and friendship.</p>
+
+            <div id="registerForm">
+
+                <h3>Create Account</h3>
+
+                <input id="regName" placeholder="Full Name">
+
+                <input id="regEmail" type="email" placeholder="Email">
+
+                <input id="regPassword" type="password" placeholder="Password">
+
+                <button onclick="register()">Create My Account</button>
+
+                <p>
+                    Already registered?
+                    <a href="#" onclick="toggleAuth(); return false;">Login</a>
+                </p>
+
+            </div>
+
+
+            <div id="loginForm" hidden>
+
+                <h3>Welcome Back ✨</h3>
+
+                <input id="loginEmail" type="email" placeholder="Email">
+
+                <input id="loginPassword" type="password" placeholder="Password">
+
+                <button onclick="login()">Login</button>
+
+                <p>
+                    New user?
+                    <a href="#" onclick="toggleAuth(); return false;">Register</a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOME -->
+
+    <section id="homeSection" hidden>
+
+        <div class="welcome-banner">
+
+            <p class="welcome-small">YOUR LITTLE CORNER OF CONNECTION</p>
+
+            <h2>Namaste, Welcome to ConnectHub! 🌷</h2>
+
+            <p>Share happiness, celebrate little moments and connect with wonderful people.</p>
+
+        </div>
+
+
+        <!-- STORIES -->
+
+        <div class="stories-section">
+
+            <h2>Moments & Stories 🌸</h2>
+
+            <div class="add-story-box">
+
+                <textarea
+                    id="storyInput"
+                    maxlength="150"
+                    placeholder="Share a little moment..."
+                ></textarea>
+
+                <input
+                    type="file"
+                    id="storyImage"
+                    accept="image/*"
+                    hidden
+                >
+
+                <label for="storyImage" class="photo-upload-btn">
+                    📷 Add a Photo
+                </label>
+
+                <p id="selectedPhotoName" class="photo-name">
+                    No photo selected yet
+                </p>
+
+                <button onclick="addStory()">
+                    + Share Your Story
+                </button>
+
+            </div>
+
+            <p class="stories-note">
+                Share your beautiful moments with friends.
+                Stories disappear after 24 hours. ✨
+            </p>
+
+            <div id="storiesContainer" class="stories-container"></div>
+
+        </div>
+
+
+        <!-- POSTS -->
+
+        <div class="feed-heading">
+
+            <h2>Your Community Feed</h2>
+
+            <p>Little thoughts, beautiful connections.</p>
+
+        </div>
+
+        <div id="postsContainer"></div>
+
+
+        <!-- DISCOVER PEOPLE -->
+
+        <div id="usersContainer"></div>
+
+    </section>
+
+
+    <!-- EXPLORE -->
+
+    <section id="exploreSection" hidden>
+
+        <div class="page-heading">
+
+            <h2>Explore ConnectHub 🔍</h2>
+
+            <p>Discover people and interesting conversations.</p>
+
+        </div>
+
+        <div class="explore-box">
+
+            <input
+                type="search"
+                id="exploreSearch"
+                placeholder="Search posts or people..."
+            >
+
+            <button onclick="searchExplore()">Search</button>
+
+        </div>
+
+        <div id="exploreResults"></div>
+
+    </section>
+
+
+    <!-- SAVED POSTS -->
+
+    <section id="savedSection" hidden>
+
+        <div class="page-heading">
+
+            <h2>Your Saved Collection 🔖</h2>
+
+            <p>Keep your favourite moments close.</p>
+
+        </div>
+
+        <div id="savedPostsContainer"></div>
+
+    </section>
+
+
+    <!-- ACTIVITY -->
+
+    <section id="activitySection" hidden>
+
+        <div class="page-heading">
+
+            <h2>Activity & Notifications 🔔</h2>
+
+            <p>Stay updated with your ConnectHub community.</p>
+
+        </div>
+
+        <div id="notificationsContainer"></div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section id="profileSection" hidden>
+
+        <div class="profile-box">
+
+            <div class="profile-decoration">✿</div>
+
+            <h2>My Profile</h2>
+
+            <h3 id="profileName"></h3>
+
+            <p id="profileEmail"></p>
+
+
+            <!-- PROFILE STATS -->
+
+            <div class="profile-stats">
+
+                <div class="stat-card">
+
+                    <h3 id="myPostCount">0</h3>
+
+                    <p>Posts</p>
+
                 </div>
 
-                <div id="loginForm" hidden>
-                    <h3>Login</h3>
-                    <input id="loginEmail" type="email" placeholder="Email">
-                    <input id="loginPassword" type="password" placeholder="Password">
-                    <button onclick="login()">Login</button>
-                    <p>New user?
-                        <a href="#" onclick="toggleAuth()">Register</a>
-                    </p>
+                <div class="stat-card">
+
+                    <h3 id="myFollowerCount">0</h3>
+
+                    <p>Followers</p>
+
                 </div>
+
+                <div class="stat-card">
+
+                    <h3 id="myFollowingCount">0</h3>
+
+                    <p>Following</p>
+
+                </div>
+
             </div>
-        </section>
 
-        <section id="homeSection" hidden>
-            <div class="create-post">
-                <h2>Share something</h2>
-                <textarea id="postContent"
-                    placeholder="What's on your mind?"></textarea>
-                <button onclick="createPost()">Create Post</button>
+
+            <!-- STORY HIGHLIGHTS -->
+
+            <div class="highlights-section">
+
+                <h2>My Highlights ✨</h2>
+
+                <p class="highlights-subtitle">
+                    Your favourite moments, saved forever 💕
+                </p>
+
+                <div
+                    id="highlightsContainer"
+                    class="highlights-container">
+                </div>
+
             </div>
 
-           <div id="postsContainer"></div>
 
-<div id="usersContainer"></div>
+            <!-- EDIT PROFILE -->
 
-</section>
+            <h3>Edit Your Profile</h3>
 
-<section id="profileSection" hidden>
-            <div class="profile-box">
-                <h2>My Profile</h2>
-                <h3 id="profileName"></h3>
-                <p id="profileEmail"></p>
-                <input id="editName" placeholder="Update your name">
-                <textarea id="editBio" placeholder="Write your bio"></textarea>
-                <button onclick="updateProfile()">Update Profile</button>
+            <input
+                id="editName"
+                placeholder="Update your name"
+            >
+
+            <textarea
+                id="editBio"
+                placeholder="Tell everyone something about yourself..."
+            ></textarea>
+
+            <button onclick="updateProfile()">
+                Save Profile Changes
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STORY VIEWER - MOVED OUTSIDE HOME -->
+
+    <div id="storyViewer" class="story-viewer" hidden>
+
+        <div class="story-viewer-card">
+
+            <button class="story-close" onclick="closeStory()">
+                ×
+            </button>
+
+            <div id="storyViewerContent"></div>
+
+            <div class="story-navigation">
+
+                <button onclick="previousStory()">
+                    ← Previous
+                </button>
+
+                <button onclick="nextStory()">
+                    Next →
+                </button>
+
             </div>
-        </section>
 
-    </main>
+        </div>
 
-    <script src="script.js"></script>
+    </div>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+
+    <p>Made with ♡ at ConnectHub</p>
+
+    <p>Connect • Share • Discover 🌸</p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
 </body>
 </html>
